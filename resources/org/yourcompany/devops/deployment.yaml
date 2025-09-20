@@ -1,0 +1,40 @@
+# resources/org/yourcompany/devops/deployment.yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app-${ENVIRONMENT}
+  labels:
+    app: myapp
+    environment: ${ENVIRONMENT}
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: myapp
+      environment: ${ENVIRONMENT}
+  template:
+    metadata:
+      labels:
+        app: myapp
+        environment: ${ENVIRONMENT}
+    spec:
+      containers:
+      - name: app
+        image: your-app:${IMAGE_TAG}
+        ports:
+        - containerPort: 8080
+        env:
+        - name: ENVIRONMENT
+          value: ${ENVIRONMENT}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: app-service-${ENVIRONMENT}
+spec:
+  selector:
+    app: myapp
+    environment: ${ENVIRONMENT}
+  ports:
+  - port: 80
+    targetPort: 8080
