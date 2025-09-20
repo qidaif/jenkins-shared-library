@@ -10,7 +10,7 @@ class Kubernetes implements Serializable {
         steps.echo "正在部署到 ${environment} 环境..."
         
         // 使用 resource 目录下的 YAML 模板
-        String template = steps.libraryResource 'org/yourcompany/devops/deployment.yaml'
+        String template = steps.libraryResource 'org/com.test.org/devops/deployment.yaml'
         
         // 替换模板中的占位符
         String deploymentYaml = template
