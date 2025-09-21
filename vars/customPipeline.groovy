@@ -8,6 +8,11 @@ def call(body) {
 
     pipeline {
         agent any
+        environment {
+            // 添加 Node.js 的安装路径到 PATH
+            PATH = "/usr/local/bin:/usr/bin:/bin:${env.PATH}"
+        }
+        
         stages {
             stage('Build') {
                 steps {
